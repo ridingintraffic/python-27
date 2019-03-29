@@ -12,8 +12,8 @@ volumes+=(--volume ${PWD}/data:/data)
 _flags="--interactive"
 [[ -t 0 && -t 1 ]] && _flags="${_flags} --tty"
 
-env+=(--env HTTP_PROXY="$HTTP_PROXY")
-env+=(--env HTTPS_PROXY="$HTTP_PROXY")
+[[ -n "${HTTP_PROXY:-}" ]] && env+=(--env HTTP_PROXY="$HTTP_PROXY")
+[[ -n "${HTTP_PROXY:-}" ]] && env+=(--env HTTPS_PROXY="$HTTP_PROXY")
 env+=(--env PYTHONHTTPSVERIFY=0)
 # env or volumes may be an empty array which bash treats as unset
 set +u
