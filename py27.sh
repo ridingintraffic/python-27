@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IMAGE_NAME=${IMAGE_NAME:-py27}
+IMAGE_VERSION=${IMAGE_VERSION:-latest}
+[[ -n "${VARIABLE1:-}" ]] &&env+=(--env VARIABLE1="$VARIABLE1")
+[[ -n "${VARIABLE2:-}" ]] &&env+=(--env VARIABLE2="$VARIABLE2")
+
+volumes+=(--volume ${PWD}/data:/data)
+
+_flags="--interactive"
+[[ -t 0 && -t 1 ]] && _flags="${_flags} --tty"
+
+env+=(--env HTTP_PROXY="$HTTP_PROXY")
+env+=(--env HTTPS_PROXY="$HTTP_PROXY")
+env+=(--env PYTHONHTTPSVERIFY=0)
+# env or volumes may be an empty array which bash treats as unset
+set +u
+exec docker run \
+  --rm \
+  ${_flags} \
+  "${volumes[@]}" \
+  "${env[@]}" \
+  "${IMAGE_NAME}:${IMAGE_VERSION}" \
+  "$@"
