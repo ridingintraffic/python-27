@@ -6,6 +6,10 @@ run the `build.sh` script
 python will install any dependancies that are needed in the requirements.txt file during build.
 
 # Run
+you will need to create the `data/` folder
+
+`mkdir data && ./py27.sh`
+
 run the `py27.sh` script
 
 to drop into an interactive shell run `./py27.sh bash`
