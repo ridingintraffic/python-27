@@ -1,1 +1,3 @@
 requests
+pysnow
+docopt
